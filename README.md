@@ -1,242 +1,115 @@
-# MushafAlMadinahVector
+# Al-Madinah Vector Edition
+## مصحف المدينة النبوية — النسخة المتجهية الرقمية
 
----
+<div dir="rtl">
 
-<div dir="rtl" align="right">
+### نبذة عن المشروع
+هذا المشروع واجهة رقمية مستقلة وعالية الدقة لاستكشاف **المعاينات المتجهية المشتقة والمتحقق منها** لصفحات مصحف المدينة النبوية (رواية حفص عن عاصم — إصدار 1439هـ).
 
-## العربية
+المصدر الفني المرجعي معتمد وصادر عن **مجمع الملك فهد لطباعة المصحف الشريف** بالمدينة المنورة، المملكة العربية السعودية.
 
-### مصحف المدينة النبوية — النسخة المتجهية (Vector)
+تظل ملفات المصحف الأصلية بصيغة Adobe Illustrator (`quran-pages/*.ai`) مصونة بالكامل، دون أي تعديل، أو إعادة كتابة، أو استبدال للخطوط، أو معالجة توليدية بالذكاء الاصطناعي.
 
-> **إشعار:** هذا المستودع يُعيد نشر الملفات المتجهية الرسمية لمصحف المدينة النبوية كما هي، دون أي تعديل على المحتوى. الملفات صادرة عن مجمع الملك فهد لطباعة المصحف الشريف، وإعادة نشرها هنا مُتاحة وفقًا لسياسة حقوق الاستخدام المعلنة من المجمع، والتي تُجيز الاستخدام والتوزيع مجانًا في المجالات الرقمية والبرمجية وغيرها. جميع الحقوق الفكرية محفوظة لمجمع الملك فهد لطباعة المصحف الشريف.
-
----
-
-#### نبذة عن المشروع
-
-يوفر هذا المستودع ملفات النسخة الرقمية المتجهية (Vector) من **مصحف المدينة النبوية** برواية حفص عن عاصم، والصادر رسميًا عن **مجمع الملك فهد لطباعة المصحف الشريف** بالمدينة المنورة، المملكة العربية السعودية.
-
-الملفات الأصلية متوفرة بصيغة **Adobe Illustrator (AI)**، وهي ملفات متجهية عالية الدقة يمكن استخدامها في التطبيقات، والمواقع الإلكترونية، والمشاريع الرقمية، وكذلك في أعمال التصميم والطباعة.
-
----
-
-#### مميزات الملفات المتجهية
-
-تعتمد ملفات المتجهات على معادلات رياضية بدلًا من البكسلات، مما يمنحها الخصائص التالية:
-
-- وضوح كامل عند التكبير بدون فقدان الجودة
-- حفظ دقيق للرسم العثماني بجميع الحركات وعلامات الوقف
-- إمكانية تغيير الألوان والحجم برمجيًا
-- خلفية شفافة
-- حجم ملفات أقل مقارنة بالصور النقطية عالية الدقة
-- مناسبة للطباعة بجميع الدقات (300dpi، 600dpi أو أعلى)
-
----
-
-#### تنسيق أسماء الملفات
-
-جميع الصفحات محفوظة بالتنسيق التالي:
-
-</div>
-
-```
-001___Hafs39__DM.ai
-002___Hafs39__DM.ai
-003___Hafs39__DM.ai
-...
-```
-
-<div dir="rtl" align="right">
-
-- الرقم الأول يمثل رقم الصفحة
-- `Hafs39` يرمز إلى نسخة حفص (الإصدار 39)
-- `DM` اختصار داخلي يشير إلى النسخة الرقمية
-
----
-
-#### الاستخدام
-
-##### في تطبيقات الويب
-
-يمكن تحويل الملفات إلى SVG أو PNG ثم إدراجها في صفحات الويب:
-
-</div>
-
-```html
-<img src="pages/001.svg" alt="صفحة من القرآن الكريم" />
-```
-
-<div dir="rtl" align="right">
-
-##### في تطبيقات الجوال
-
-يمكن تحويل الملفات إلى SVG أو PNG وعرضها باستخدام مكتبات iOS أو Android.
-
-##### في برامج التصميم
-
-تُفتح مباشرة في:
-
-- Adobe Illustrator
-- Inkscape
-- Affinity Designer
-- وأي برنامج يدعم صيغة AI
-
-##### للطباعة
-
-يمكن الطباعة بأي دقة دون فقدان الجودة بفضل الطبيعة المتجهية للملفات.
-
----
-
-#### تحويل الملفات
-
-##### باستخدام Inkscape (مجاني)
-
-</div>
-
-```bash
-# تحويل ملف واحد
-inkscape 001___Hafs39__DM.ai --export-filename=001.svg
-
-# تحويل جميع الملفات
-for f in *.ai; do inkscape "$f" --export-filename="${f%.ai}.svg"; done
-```
-
-<div dir="rtl" align="right">
-
-##### باستخدام Adobe Illustrator
-
-`File → Save As → SVG`
-
----
-
-#### المصدر والترخيص
-
-**المصدر الرسمي:**
-[مجمع الملك فهد لطباعة المصحف الشريف](https://dm.qurancomplex.gov.sa/)
-
-> ⚠️ **ملاحظة:** طباعة المصاحف لأغراض تجارية داخل المملكة أو استيرادها للبيع يخضع لأنظمة خاصة.
-
-> ⚠️ **تنبيه:** المجمع غير مسؤول عن الأخطاء التقنية الناتجة عن الاستخدام البرمجي للملفات.
-
----
-
-#### الاعتمادات
-
-**الخطاط:** عثمان طه حفظه الله
-**الناشر:** مجمع الملك فهد لطباعة المصحف الشريف — المدينة المنورة
-
----
-
-> نسأل الله أن ينفع المسلمين بهذا العمل المبارك
+- **الموقع الرسمي للمجمع:** https://dm.qurancomplex.gov.sa/
+- **شروط وحقوق الاستخدام الرسمية:** https://dm.qurancomplex.gov.sa/rights/
+- **المستودع المصدري الأصلي:** https://github.com/MushafAlMadinahVector/MushafAlMadinahVector
 
 </div>
 
 ---
 
-## English
+## Purpose & Scope
 
-### Mushaf Al-Madinah An-Nabawiyyah — Vector Edition
+The **Al-Madinah Vector Edition** repository provides a restrained, museum-grade editorial web interface, automated conversion pipeline, and cryptographic verification framework for the official Mushaf Al-Madinah vector publication.
 
-> **Notice:** This repository republishes the official vector files of Mushaf Al-Madinah An-Nabawiyyah as-is, without any modification to the content. The files are produced by the King Fahd Glorious Quran Printing Complex. Redistribution here is permitted under the Complex's published usage rights policy, which allows free use and distribution for digital, software, and other purposes. All intellectual property rights belong to the King Fahd Glorious Quran Printing Complex.
-
----
-
-#### About
-
-This repository provides the digital vector (AI format) edition of **Mushaf Al-Madinah An-Nabawiyyah** (Hafs narration), officially published by the **King Fahd Glorious Quran Printing Complex** in Al-Madinah, Saudi Arabia.
-
-The files are original vector files suitable for digital applications, web usage, design work, and high-quality printing.
+### Core Guarantees:
+1. **Sacred Source Integrity**: Authoritative vector assets in `quran-pages/` are immutable and read-only. Calligraphic artwork, verse markers, diacritics, and marginal ornaments are never modified, smoothed, or altered.
+2. **Deterministic Vector Derivation**: Previews in `public/previews/*.svg` are exact vector derivatives extracted from the embedded `%PDF-1.5%` stream of the original `.ai` files. No OCR text substitutions or AI approximations are permitted.
+3. **Cryptographic Traceability**: Every page preview is indexed in `public/data/pages.json` with its source filename, byte count, and SHA-256 integrity hash.
+4. **Governed Rights & Attribution**: All rights in the Quranic calligraphy belong to the King Fahd Glorious Quran Printing Complex. Frontend application code is maintained as independent open-source tooling.
 
 ---
 
-#### Vector Advantages
+## Repository Architecture
 
-- Unlimited scaling without quality loss
-- Precise preservation of the Uthmanic script and diacritics
-- Editable colors and sizes
-- Transparent background
-- Smaller file sizes compared to raster images
-- Print-ready at any resolution
-
----
-
-#### File Naming Format
-
-All pages follow this naming pattern:
-
-```
-001___Hafs39__DM.ai
-002___Hafs39__DM.ai
-003___Hafs39__DM.ai
-...
-```
-
-- First number = page number
-- `Hafs39` = Hafs edition (version 39)
-- `DM` = internal digital version label
-
----
-
-#### Usage
-
-##### Web
-
-Convert to SVG or PNG and embed:
-
-```html
-<img src="pages/001.svg" alt="Quran Page" />
-```
-
-##### Mobile Apps
-
-Convert to SVG/PNG and render using platform-specific libraries (iOS / Android).
-
-##### Design Software
-
-Open directly in:
-
-- Adobe Illustrator
-- Inkscape
-- Affinity Designer
-
-##### Printing
-
-Print at any resolution (300dpi, 600dpi, or higher) without quality loss.
-
----
-
-#### Conversion
-
-##### Using Inkscape
-
-```bash
-inkscape 001___Hafs39__DM.ai --export-filename=001.svg
-```
-
-Batch:
-
-```bash
-for f in *.ai; do inkscape "$f" --export-filename="${f%.ai}.svg"; done
+```text
+Al-Madinah/
+├── quran-pages/                  # Authoritative .ai files (604 pages, Hafs 39) — read-only
+├── public/
+│   ├── data/
+│   │   └── pages.json            # Generated cryptographic manifest (SHA-256, Surah, Juz)
+│   └── previews/                 # Derived vector SVG previews (git-isolated derivatives)
+├── scripts/
+│   ├── convert-previews.py       # PyMuPDF vector SVG extraction engine
+│   ├── convert-previews.mjs      # Multi-engine CLI runner (PyMuPDF / Inkscape)
+│   ├── generate-manifest.mjs     # SHA-256 hashing and metadata generator
+│   ├── verify-manifest.mjs       # Build and asset integrity validator
+│   └── quran-data.mjs            # 604-page canonical Surah (1-114) and Juz (1-30) mapping
+├── docs/
+│   └── AUDIT.md                  # Comprehensive repository audit and technical assessment
+├── index.html                    # High-end, accessible, bilingual editorial UI
+├── styles.css                    # Design system (parchment palette, typography, RTL support)
+├── app.js                        # Interactive viewer, pan/zoom, search, and integrity inspector
+├── CONTRIBUTING.md               # Contribution policies and PR integrity checklist
+├── LICENSE                       # Official KFGQPC bilingual rights and disclaimer notice
+└── package.json                  # Scripts and engine configuration (Node >= 20)
 ```
 
 ---
 
-#### Source & License
+## Quickstart & Local Execution
 
-**Official Source:**
-[King Fahd Glorious Quran Printing Complex](https://dm.qurancomplex.gov.sa/)
+Requires **Node.js 20+** and optionally **Python 3 with PyMuPDF** for high-speed conversion.
 
-> ⚠️ **Note:** Commercial printing and sale inside the Kingdom are subject to specific regulations.
+### 1. Build and Verify
+```sh
+npm run build
+```
+The build process validates the manifest and referenced assets. In the absence of local vector files, it safely completes in asset-safe mode without crashing.
 
-> ⚠️ **Disclaimer:** The Complex is not responsible for technical or programming issues arising from usage.
+### 2. Launch Local Interface
+```sh
+npm run serve
+```
+Launches the static HTTP server at `http://localhost:3000`.
 
 ---
 
-#### Credits
+## Vector Conversion Pipeline
 
-**Calligraphy:** Uthman Taha (may Allah preserve him)
-**Publisher:** King Fahd Glorious Quran Printing Complex — Al-Madinah Al-Munawwarah
+The official Adobe Illustrator `.ai` files (`NNN___Hafs39__DM.ai`) contain embedded `%PDF-1.5%` vector streams. The conversion tooling extracts clean, pure vector SVGs without rasterization or glyph clipping:
+
+```sh
+# 1. Place authorised .ai files in quran-pages/
+# 2. Convert to vector SVGs using PyMuPDF (or Inkscape)
+npm run convert
+
+# 3. Generate cryptographic manifest with SHA-256 checksums
+npm run manifest
+
+# 4. Verify asset integrity
+npm run verify:assets
+```
 
 ---
 
-> May Allah benefit the Muslims through this work
+## Interactive Viewer Capabilities
+
+- **Bilingual Interface**: Seamless instant toggle between English (LTR) and Arabic (RTL) with tailored typography (`Amiri`, `Cormorant Garamond`, `Inter`).
+- **Interactive Pan & Drag**: Smooth mouse click-and-drag and touch gestures when zoomed into calligraphy.
+- **Precision Zoom**: Stepped zoom (`+`, `-`), Fit Width (`W`), Fit Page (`P`), Reset (`0`), and Double-Click toggle.
+- **Keyboard Navigation**: Flip through pages using Left/Right arrows, `F` for distraction-free Fullscreen, and `Esc` to exit modals.
+- **Cryptographic Inspector**: Direct modal access to the page's SHA-256 hash, byte count, source filename, and upstream provenance.
+- **Canonical Quran Index**: Real-time filtering across all 114 Surahs, 30 Juz, and page numbers (1–604).
+
+---
+
+## Rights, Ownership & Governance
+
+### Quranic Calligraphic Artwork
+All Quranic calligraphy, composition, and original artwork are the intellectual property of the **King Fahd Glorious Quran Printing Complex (KFGQPC)**, Al-Madinah Al-Munawwarah, Kingdom of Saudi Arabia.
+
+Under the [official KFGQPC terms](https://dm.qurancomplex.gov.sa/rights/), the digital copy may be used free of charge across personal, institutional, web, software, and printing contexts. Commercial physical printing of physical copies in Saudi Arabia remains subject to specific regulations.
+
+### Frontend Application Code
+Original application code (`app.js`, `styles.css`, `index.html`, and `scripts/`) is independent frontend tooling designed to make the official resources accessible. It does not alter, replace, or supersede the rights applicable to the underlying Quranic calligraphy.

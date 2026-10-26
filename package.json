@@ -1,0 +1,14 @@
+{
+  "name": "al-madinah-vector-viewer",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A respectful, asset-safe browser for verified Mushaf Al-Madinah vector previews.",
+  "scripts": {
+    "build": "node scripts/verify-manifest.mjs --allow-empty",
+    "manifest": "node scripts/generate-manifest.mjs",
+    "convert": "node scripts/convert-previews.mjs",
+    "verify:assets": "node scripts/verify-manifest.mjs",
+    "serve": "npx --yes serve ."
+  },
+  "engines": { "node": ">=20" }
+}

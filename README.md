@@ -1,115 +1,126 @@
-# Al-Madinah Vector Edition
-## مصحف المدينة النبوية — النسخة المتجهية الرقمية
+# Al-Madinah — Vector Edition
 
-<div dir="rtl">
+**A carefully designed, independent web viewer for the Mushaf Al-Madinah vector pages.**
 
-### نبذة عن المشروع
-هذا المشروع واجهة رقمية مستقلة وعالية الدقة لاستكشاف **المعاينات المتجهية المشتقة والمتحقق منها** لصفحات مصحف المدينة النبوية (رواية حفص عن عاصم — إصدار 1439هـ).
+The repository preserves the original Adobe Illustrator (`.ai`) page files and adds a lightweight browser experience for navigating and previewing them. The interface is independent of the official publisher; the original artwork remains attributed to the **King Fahd Glorious Quran Printing Complex (KFGQPC)**.
 
-المصدر الفني المرجعي معتمد وصادر عن **مجمع الملك فهد لطباعة المصحف الشريف** بالمدينة المنورة، المملكة العربية السعودية.
+<p align="center">
+  <a href="https://dm.qurancomplex.gov.sa/">Official source</a> ·
+  <a href="https://dm.qurancomplex.gov.sa/rights/">Official usage rights</a> ·
+  <a href="https://github.com/kausikhussain/Al-Madinah">Repository</a>
+</p>
 
-تظل ملفات المصحف الأصلية بصيغة Adobe Illustrator (`quran-pages/*.ai`) مصونة بالكامل، دون أي تعديل، أو إعادة كتابة، أو استبدال للخطوط، أو معالجة توليدية بالذكاء الاصطناعي.
+> **Important:** The source Quranic artwork is not modified by the viewer. The browser preview is a convenience layer; use the original `.ai` file when the vector source itself is required. This project is not an official KFGQPC website and does not imply endorsement.
 
-- **الموقع الرسمي للمجمع:** https://dm.qurancomplex.gov.sa/
-- **شروط وحقوق الاستخدام الرسمية:** https://dm.qurancomplex.gov.sa/rights/
-- **المستودع المصدري الأصلي:** https://github.com/MushafAlMadinahVector/MushafAlMadinahVector
+## The experience
 
-</div>
+The website in [`website/`](website/) is a static, responsive interface featuring:
 
----
+- **Page viewer:** Render a selected original page in the browser using PDF.js. The `.ai` files in this edition contain PDF-compatible data; browser rendering is best-effort and may vary by file or browser.
+- **604-page index:** Navigate by page number, use previous/next controls, or select a page from the paginated index.
+- **Original-source access:** Open the selected page's original AI file from this repository.
+- **PNG preview export:** Export the current canvas view for reference. This is a raster preview, not a replacement for the vector source.
+- **Keyboard navigation:** Use the left/right arrow keys to move between pages when focus is not in a form control.
+- **Responsive layout:** Desktop, tablet, and mobile layouts with reduced-motion support and accessible controls.
+- **Source and rights visibility:** Direct links to the publisher's website and published usage-rights page.
 
-## Purpose & Scope
+The viewer loads only the page that is requested instead of downloading all 604 source files at startup. PDF.js and web fonts are loaded from external CDNs, and original page files are fetched from this repository's `main` branch.
 
-The **Al-Madinah Vector Edition** repository provides a restrained, museum-grade editorial web interface, automated conversion pipeline, and cryptographic verification framework for the official Mushaf Al-Madinah vector publication.
+## Preview the website locally
 
-### Core Guarantees:
-1. **Sacred Source Integrity**: Authoritative vector assets in `quran-pages/` are immutable and read-only. Calligraphic artwork, verse markers, diacritics, and marginal ornaments are never modified, smoothed, or altered.
-2. **Deterministic Vector Derivation**: Previews in `public/previews/*.svg` are exact vector derivatives extracted from the embedded `%PDF-1.5%` stream of the original `.ai` files. No OCR text substitutions or AI approximations are permitted.
-3. **Cryptographic Traceability**: Every page preview is indexed in `public/data/pages.json` with its source filename, byte count, and SHA-256 integrity hash.
-4. **Governed Rights & Attribution**: All rights in the Quranic calligraphy belong to the King Fahd Glorious Quran Printing Complex. Frontend application code is maintained as independent open-source tooling.
+No build tool or package installation is required. Python 3 is sufficient to serve the static site.
 
----
+From the repository root:
 
-## Repository Architecture
+```bash
+python -m http.server 8000 --directory website
+```
+
+Open <http://localhost:8000> in a modern browser. Serve the site over HTTP rather than opening `index.html` with a `file://` URL; browser module imports and document fetching require a web origin.
+
+For this local preview, the page viewer still fetches original `.ai` files from the repository's public `main` branch. It therefore requires an internet connection.
+
+## Publish with GitHub Pages
+
+The workflow at [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) deploys only `website/`—not the large source-artwork directory—so the 604 source files do not have to be copied into the Pages artifact.
+
+One-time repository setup:
+
+1. Open **Settings → Pages** in this repository.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. Push or merge a change to `main`, or start the deployment workflow manually under **Actions**.
+4. Open the URL shown in the successful `Deploy to GitHub Pages` workflow run.
+
+The deployed interface reads the page assets from `https://raw.githubusercontent.com/kausikhussain/Al-Madinah/main/quran-pages/`. If the source repository or branch is renamed, update `SOURCE_BASE` in `website/app.js`.
+
+## Repository layout
 
 ```text
-Al-Madinah/
-├── quran-pages/                  # Authoritative .ai files (604 pages, Hafs 39) — read-only
-├── public/
-│   ├── data/
-│   │   └── pages.json            # Generated cryptographic manifest (SHA-256, Surah, Juz)
-│   └── previews/                 # Derived vector SVG previews (git-isolated derivatives)
+.
+├── quran-pages/                 # Original Mushaf Al-Madinah AI files; preserve unchanged
+├── website/
+│   ├── index.html                # Accessible page structure and navigation
+│   ├── styles.css                # Responsive design system and visual styling
+│   ├── app.js                    # PDF.js renderer, page navigation, export and interactions
+│   ├── favicon.svg               # Interface favicon; not part of the Quranic artwork
+│   └── LICENSE                   # MIT license scoped to website code only
 ├── scripts/
-│   ├── convert-previews.py       # PyMuPDF vector SVG extraction engine
-│   ├── convert-previews.mjs      # Multi-engine CLI runner (PyMuPDF / Inkscape)
-│   ├── generate-manifest.mjs     # SHA-256 hashing and metadata generator
-│   ├── verify-manifest.mjs       # Build and asset integrity validator
-│   └── quran-data.mjs            # 604-page canonical Surah (1-114) and Juz (1-30) mapping
-├── docs/
-│   └── AUDIT.md                  # Comprehensive repository audit and technical assessment
-├── index.html                    # High-end, accessible, bilingual editorial UI
-├── styles.css                    # Design system (parchment palette, typography, RTL support)
-├── app.js                        # Interactive viewer, pan/zoom, search, and integrity inspector
-├── CONTRIBUTING.md               # Contribution policies and PR integrity checklist
-├── LICENSE                       # Official KFGQPC bilingual rights and disclaimer notice
-└── package.json                  # Scripts and engine configuration (Node >= 20)
+│   ├── validate-assets.py        # Checks the expected source-page filenames and file signatures
+│   └── validate-html.py          # Basic static checks for the website markup
+├── .github/workflows/
+│   ├── validate.yml              # Syntax and asset-integrity checks
+│   └── deploy-pages.yml          # Static GitHub Pages deployment
+├── LICENSE                      # Usage notice scoped to original source artwork
+├── RIGHTS-AND-ATTRIBUTION.md     # Rights scope and attribution guidance
+└── CONTRIBUTING.md               # Contribution workflow and integrity checklist
 ```
+
+## Source assets
+
+The current repository contains 604 files in `quran-pages/`, named with a pattern similar to:
+
+```text
+001___Hafs39__DM.ai
+002___Hafs39__DM.ai
+003___Hafs39__DM.ai
+...
+604___Hafs39__DM.ai
+```
+
+Run the source integrity check from the repository root:
+
+```bash
+python scripts/validate-assets.py
+```
+
+The check verifies the expected page-number sequence, file presence, non-empty files, and the PDF-compatible header used by the browser renderer. It does **not** prove the calligraphy is correct; content fidelity still requires visual comparison with the source and publisher's reference.
+
+## Rights, ownership, and attribution
+
+- Original Mushaf vector artwork is attributed to the King Fahd Glorious Quran Printing Complex. The Complex retains the intellectual-property rights identified in its published terms.
+- The Complex publishes a free digital vector edition for a range of personal, institutional, printing, publishing, web, and software uses. Specific restrictions apply to commercial printing and importing physical Mushaf copies for commercial sale in Saudi Arabia. Read the official terms before use: [KFGQPC usage rights](https://dm.qurancomplex.gov.sa/rights/).
+- The Quranic source artwork must not be edited or replaced by generated or reconstructed text in this project. Keep converted previews separate from the original `.ai` files.
+- [`website/LICENSE`](website/LICENSE) applies only to the independently authored website code in `website/`. It does not apply to `quran-pages/`, the original Quranic artwork, or third-party components.
+- The root [`LICENSE`](LICENSE) records the source-artwork notice. It is not a blanket open-source license for all content in the repository.
+
+## Accessibility and limitations
+
+The current viewer renders a page as a visual canvas. It does not provide semantic, searchable Quranic text or a screen-reader transcription of the page artwork. PDF.js, fonts, and source files need a network connection. Browser compatibility and rendering details can vary; if a page cannot be rendered, the interface provides a link to its original source file.
+
+## Contributing
+
+Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) before submitting changes. In particular, keep original source files untouched, preserve attribution, and test representative pages after any renderer or asset-pipeline change.
+
+## Arabic — نبذة عن المشروع
+
+يوفّر هذا المستودع واجهة مستقلة لتصفح ومعاينة ملفات مصحف المدينة النبوية المتجهية برواية حفص. تبقى ملفات المصدر الأصلية كما هي دون تعديل لمحتوى القرآن الكريم، وتعود حقوقها الفكرية إلى مجمع الملك فهد لطباعة المصحف الشريف وفق شروط الاستخدام المنشورة من المجمع.
+
+- [المصدر الرسمي](https://dm.qurancomplex.gov.sa/)
+- [حقوق الاستخدام الرسمية](https://dm.qurancomplex.gov.sa/rights/)
+- [سياسة المساهمة](CONTRIBUTING.md)
+
+هذه الواجهة مشروع مستقل وليست موقعًا رسميًا للمجمع ولا تعني وجود اعتماد أو تأييد رسمي. المعاينة داخل المتصفح هي صورة مرئية للصفحة، ولا تستبدل ملف المتجه الأصلي.
 
 ---
 
-## Quickstart & Local Execution
-
-Requires **Node.js 20+** and optionally **Python 3 with PyMuPDF** for high-speed conversion.
-
-### 1. Build and Verify
-```sh
-npm run build
-```
-The build process validates the manifest and referenced assets. In the absence of local vector files, it safely completes in asset-safe mode without crashing.
-
-### 2. Launch Local Interface
-```sh
-npm run serve
-```
-Launches the static HTTP server at `http://localhost:3000`.
-
----
-
-## Vector Conversion Pipeline
-
-The official Adobe Illustrator `.ai` files (`NNN___Hafs39__DM.ai`) contain embedded `%PDF-1.5%` vector streams. The conversion tooling extracts clean, pure vector SVGs without rasterization or glyph clipping:
-
-```sh
-# 1. Place authorised .ai files in quran-pages/
-# 2. Convert to vector SVGs using PyMuPDF (or Inkscape)
-npm run convert
-
-# 3. Generate cryptographic manifest with SHA-256 checksums
-npm run manifest
-
-# 4. Verify asset integrity
-npm run verify:assets
-```
-
----
-
-## Interactive Viewer Capabilities
-
-- **Bilingual Interface**: Seamless instant toggle between English (LTR) and Arabic (RTL) with tailored typography (`Amiri`, `Cormorant Garamond`, `Inter`).
-- **Interactive Pan & Drag**: Smooth mouse click-and-drag and touch gestures when zoomed into calligraphy.
-- **Precision Zoom**: Stepped zoom (`+`, `-`), Fit Width (`W`), Fit Page (`P`), Reset (`0`), and Double-Click toggle.
-- **Keyboard Navigation**: Flip through pages using Left/Right arrows, `F` for distraction-free Fullscreen, and `Esc` to exit modals.
-- **Cryptographic Inspector**: Direct modal access to the page's SHA-256 hash, byte count, source filename, and upstream provenance.
-- **Canonical Quran Index**: Real-time filtering across all 114 Surahs, 30 Juz, and page numbers (1–604).
-
----
-
-## Rights, Ownership & Governance
-
-### Quranic Calligraphic Artwork
-All Quranic calligraphy, composition, and original artwork are the intellectual property of the **King Fahd Glorious Quran Printing Complex (KFGQPC)**, Al-Madinah Al-Munawwarah, Kingdom of Saudi Arabia.
-
-Under the [official KFGQPC terms](https://dm.qurancomplex.gov.sa/rights/), the digital copy may be used free of charge across personal, institutional, web, software, and printing contexts. Commercial physical printing of physical copies in Saudi Arabia remains subject to specific regulations.
-
-### Frontend Application Code
-Original application code (`app.js`, `styles.css`, `index.html`, and `scripts/`) is independent frontend tooling designed to make the official resources accessible. It does not alter, replace, or supersede the rights applicable to the underlying Quranic calligraphy.
+*Built with care. Original source artwork preserved separately.*

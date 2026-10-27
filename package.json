@@ -8,7 +8,11 @@
     "manifest": "node scripts/generate-manifest.mjs",
     "convert": "node scripts/convert-previews.mjs",
     "verify:assets": "node scripts/verify-manifest.mjs",
-    "serve": "npx --yes serve ."
+    "validate:html": "python scripts/validate-html.py",
+    "validate:source": "python scripts/validate-assets.py --allow-partial",
+    "validate": "node --check website/app.js && python scripts/validate-html.py && python scripts/validate-assets.py --allow-partial",
+    "serve": "npx --yes serve .",
+    "serve:website": "python -m http.server 8000 --directory website"
   },
   "engines": { "node": ">=20" }
 }

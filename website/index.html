@@ -81,7 +81,7 @@
           </div>
 
           <div class="page-stage-shell" id="page-stage-shell">
-            <div class="page-stage" id="page-stage">
+            <div class="page-stage" id="page-stage" tabindex="0" role="region" aria-label="Selected Mushaf page. Use arrow keys to navigate, plus and minus to zoom, and drag when zoomed.">
               <div class="page-placeholder" id="page-placeholder">
                 <span class="placeholder-mark" aria-hidden="true">۞</span>
                 <span class="placeholder-title">Preparing the page</span>
@@ -93,7 +93,8 @@
                 <span class="error-symbol" aria-hidden="true">—</span>
                 <strong>Preview unavailable</strong>
                 <p>The browser could not render this source file. The original artwork is still available.</p>
-                <a id="error-source-link" href="https://github.com/kausikhussain/Al-Madinah/tree/main/quran-pages" target="_blank" rel="noopener noreferrer">Open source files ↗</a>
+                <button class="button button-primary retry-button" id="retry-page" type="button" data-page="1">Try again</button>
+                <a id="error-source-link" href="https://github.com/kausikhussain/Al-Madinah/tree/main/quran-pages" target="_blank" rel="noopener noreferrer">Open original page ↗</a>
               </div>
             </div>
             <div class="stage-caption"><span id="stage-status" role="status" aria-live="polite">Preparing page 001…</span><span>ORIGINAL VECTOR SOURCE</span></div>
@@ -113,8 +114,22 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7"/></svg>
             </button>
             <span class="control-divider" aria-hidden="true"></span>
+            <div class="zoom-control-group" role="group" aria-label="Page zoom controls">
+              <button class="icon-button utility-button" id="zoom-out" type="button" aria-label="Zoom out" title="Zoom out" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+              </button>
+              <output id="zoom-level" class="zoom-level" aria-live="polite">100%</output>
+              <button class="icon-button utility-button" id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+              <button class="zoom-reset-button" id="zoom-reset" type="button" aria-label="Reset zoom and position" title="Fit page to viewer" disabled>Fit</button>
+            </div>
+            <span class="control-divider" aria-hidden="true"></span>
             <button class="icon-button utility-button" id="fullscreen-button" type="button" aria-label="Open page preview fullscreen" title="Fullscreen">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4M16 4h4v4M4 16v4h4M20 16v4h-4"/></svg>
+            </button>
+            <button class="icon-button utility-button" id="share-page-button" type="button" aria-label="Copy a shareable link to the current page" title="Share current page">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13.5 14 9.5M8.5 15.5l-1.2 1.2a3.5 3.5 0 0 1-5-5l4-4a3.5 3.5 0 0 1 5 0M15.5 8.5l1.2-1.2a3.5 3.5 0 0 1 5 5l-4 4a3.5 3.5 0 0 1-5 0"/></svg>
             </button>
             <button class="icon-button utility-button" id="export-button" type="button" aria-label="Export current preview as PNG" title="Export preview as PNG" disabled>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg>
@@ -160,6 +175,11 @@
             </div>
           </form>
           <div class="index-meta"><span class="index-dot" aria-hidden="true"></span><span id="index-range-label">Pages 001–024 of 604</span></div>
+        </div>
+
+        <div class="recent-pages" id="recent-pages" hidden>
+          <div class="recent-pages-heading"><span>CONTINUE EXPLORING</span><small>Stored only in this browser</small></div>
+          <div class="recent-page-list" id="recent-page-list" aria-label="Recently viewed pages"></div>
         </div>
 
         <div class="page-index-grid reveal" id="page-index-grid" aria-label="Page number index"></div>

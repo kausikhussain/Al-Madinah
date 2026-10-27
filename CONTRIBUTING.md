@@ -26,10 +26,11 @@ Open <http://localhost:8000>.
 ```bash
 node --check website/app.js
 python scripts/validate-html.py
+python scripts/validate-viewer.py
 python scripts/validate-assets.py
 ```
 
-For a change to rendering or page navigation, test multiple pages, including the first page, a middle page, and the final page. Check desktop and mobile layouts, previous/next navigation, direct page-number navigation, the original-file link, PNG preview export, reduced-motion behavior, and keyboard access.
+For a change to rendering or page navigation, test multiple pages, including the first page, a middle page, and the final page. Check desktop and mobile layouts, previous/next navigation, URL-based direct links, browser Back/Forward, recent-page return, zoom/pan/Fit, fullscreen resize, the original-file link, PNG preview export, reduced-motion behavior, and keyboard access. Confirm that rapid page changes cannot leave a stale page rendered as the selected page.
 
 ## Source-artwork integrity
 

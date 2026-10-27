@@ -17,14 +17,17 @@ The repository preserves the original Adobe Illustrator (`.ai`) page files and a
 The website in [`website/`](website/) is a static, responsive interface featuring:
 
 - **Page viewer:** Render a selected original page in the browser using PDF.js. The `.ai` files in this edition contain PDF-compatible data; browser rendering is best-effort and may vary by file or browser.
-- **604-page index:** Navigate by page number, use previous/next controls, or select a page from the paginated index.
+- **604-page index:** Navigate by page number, use previous/next controls, or select a page from the paginated index. The index follows the currently selected page.
+- **Direct page links:** The selected page is reflected in the URL (`?page=42`), so a particular page can be shared and reopened directly.
+- **Recent pages:** The last six successfully viewed pages are stored locally in the current browser for convenient return. This history is not sent to a server.
+- **Zoom and pan:** Zoom the page from 100% to 250%, drag to inspect a magnified area, and use Fit to reset the view.
 - **Original-source access:** Open the selected page's original AI file from this repository.
-- **PNG preview export:** Export the current canvas view for reference. This is a raster preview, not a replacement for the vector source.
-- **Keyboard navigation:** Use the left/right arrow keys to move between pages when focus is not in a form control.
-- **Responsive layout:** Desktop, tablet, and mobile layouts with reduced-motion support and accessible controls.
+- **PNG preview export:** Export the fitted canvas preview for reference. This is a raster preview, not a replacement for the vector source.
+- **Keyboard navigation:** Use left/right arrows for previous/next, Home/End for first/last page, `+`/`=` and `-` for zoom, and `0` to fit. Shortcuts are disabled while typing in form controls.
+- **Responsive rendering:** Re-render the selected page when the viewer changes size, including fullscreen entry/exit. The zoomed page remains pannable and reduced-motion preferences are respected.
 - **Source and rights visibility:** Direct links to the publisher's website and published usage-rights page.
 
-The viewer loads only the page that is requested instead of downloading all 604 source files at startup. PDF.js and web fonts are loaded from external CDNs, and original page files are fetched from this repository's `main` branch.
+The viewer loads only the requested page instead of downloading all 604 source files at startup. PDF.js and web fonts are loaded from external CDNs, and original page files are fetched from this repository's `main` branch. A direct-link query parameter restores the requested page on first load. The viewer makes no claims that a canvas preview is a semantic or accessible transcription of Quranic text.
 
 ## Preview the website locally
 
@@ -38,7 +41,7 @@ python -m http.server 8000 --directory website
 
 Open <http://localhost:8000> in a modern browser. Serve the site over HTTP rather than opening `index.html` with a `file://` URL; browser module imports and document fetching require a web origin.
 
-For this local preview, the page viewer still fetches original `.ai` files from the repository's public `main` branch. It therefore requires an internet connection.
+For this local preview, the page viewer still fetches original `.ai` files from the repository's public `main` branch. It therefore requires an internet connection. The most recently visited pages are stored in this browser only; clearing local site data removes that history.
 
 ## Publish with GitHub Pages
 
@@ -65,6 +68,7 @@ The deployed interface reads the page assets from `https://raw.githubusercontent
 │   ├── favicon.svg               # Interface favicon; not part of the Quranic artwork
 │   └── LICENSE                   # MIT license scoped to website code only
 ├── scripts/
+│   ├── validate-viewer.py          # Checks viewer control wiring and key documentation
 │   ├── validate-assets.py        # Checks the expected source-page filenames and file signatures
 │   └── validate-html.py          # Basic static checks for the website markup
 ├── .github/workflows/
@@ -107,7 +111,10 @@ The check verifies the expected page-number sequence, file presence, non-empty f
 
 The current viewer renders a page as a visual canvas. It does not provide semantic, searchable Quranic text or a screen-reader transcription of the page artwork. PDF.js, fonts, and source files need a network connection. Browser compatibility and rendering details can vary; if a page cannot be rendered, the interface provides a link to its original source file.
 
-## Contributing
+## Upgrade and contribution guides
+
+- [Apply the premium viewer upgrade safely](APPLY-UPGRADE.md) — overlay instructions; keep `quran-pages/` untouched.
+- [Upgrade notes and verification status](UPGRADE_NOTES.md) — recent improvements and what was actually checked.
 
 Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) before submitting changes. In particular, keep original source files untouched, preserve attribution, and test representative pages after any renderer or asset-pipeline change.
 

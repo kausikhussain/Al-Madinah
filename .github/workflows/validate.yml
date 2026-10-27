@@ -33,5 +33,8 @@ jobs:
       - name: Validate website markup
         run: python scripts/validate-html.py
 
+      - name: Validate viewer control wiring and documentation
+        run: python scripts/validate-viewer.py
+
       - name: Validate source page filenames and signatures
         run: python scripts/validate-assets.py
